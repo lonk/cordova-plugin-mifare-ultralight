@@ -54,14 +54,12 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
 
     @Override
     public void onPause(boolean multitasking) {
-        Log.d(TAG, "pauseApp");
         super.onPause(multitasking);
         stopNfc();
     }
 
     @Override
     public void onResume(boolean multitasking) {
-        Log.d(TAG, "resumeApp");
         super.onResume(multitasking);
         startNfc();
     }
@@ -349,6 +347,7 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                 if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
                     fireTagEvent(tag, "mifareTagDiscovered");
                 } else if (action.equals(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED) && mAdapter != null && !mAdapter.isEnabled()) {
+                    Log.d(TAG, "restartNfc");
                     startNfc();
                 }
                 setIntent(new Intent());
