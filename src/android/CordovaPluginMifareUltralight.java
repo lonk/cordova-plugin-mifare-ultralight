@@ -50,6 +50,7 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
         mAdapter = NfcAdapter.getDefaultAdapter(this.cordova.getActivity().getApplicationContext());
 
         intentFilters.add(new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED));
+        intentFilters.add(new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED));
     }
 
     @Override
