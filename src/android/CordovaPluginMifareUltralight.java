@@ -108,7 +108,6 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
 
     @Override
     public void onNewIntent(Intent intent) {
-        clean(callbackContext, "onNewIntent " + intent);
         Log.d(TAG, "onNewIntent " + intent);
         super.onNewIntent(intent);
         setIntent(intent);
