@@ -289,7 +289,7 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                 if (nfcAdapter != null && !getActivity().isFinishing()) {
                     try {
                         // nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, getIntentFilters(), getTechLists());
-                        nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, null, null);
+                        nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, getIntentFilters(), null);
                     } catch (IllegalStateException e) {
                         // issue 110 - user exits app with home button while nfc is initializing
                         Log.w(TAG, "Illegal State Exception starting NFC. Assuming application is terminating.");
