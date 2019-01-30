@@ -193,11 +193,6 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                     callbackContext.success(result);
                 } catch (final Exception e) {
                     clean(callbackContext, e);
-
-                    if (e.getMessage() == "NFC service died") {
-                        startNfc();
-                        read(callbackContext, pageOffset);
-                    }
                 }
             }
         });
@@ -216,11 +211,6 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                     callbackContext.success();
                 } catch (final Exception e) {
                     clean(callbackContext, e);
-
-                    if (e.getMessage() == "NFC service died") {
-                        startNfc();
-                        write(callbackContext, pageOffset, data);
-                    }
                 }
             }
         });
@@ -249,11 +239,6 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                     }
                 } catch (final Exception e) {
                     clean(callbackContext, e);
-
-                    if (e.getMessage() == "NFC service died") {
-                        startNfc();
-                        unlock(callbackContext, pin);
-                    }
                 }
             }
         });
@@ -361,6 +346,8 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
                     fireTagEvent(tag, "mifareTagDiscovered");
+                } else if (action.equals(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED) && mAdapter != null && !mAdapter.isEnabled()) {
+                    startNfc();
                 }
                 setIntent(new Intent());
             }
