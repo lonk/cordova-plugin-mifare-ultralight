@@ -54,12 +54,14 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
 
     @Override
     public void onPause(boolean multitasking) {
+        Log.d(TAG, "pauseApp");
         super.onPause(multitasking);
         stopNfc();
     }
 
     @Override
     public void onResume(boolean multitasking) {
+        Log.d(TAG, "resumeApp");
         super.onResume(multitasking);
         startNfc();
     }
