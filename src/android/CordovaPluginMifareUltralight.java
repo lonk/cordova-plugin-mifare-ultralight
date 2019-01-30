@@ -193,6 +193,11 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                     callbackContext.success(result);
                 } catch (final Exception e) {
                     clean(callbackContext, e);
+
+                    if (e.getMessage() == "NFC service died") {
+                        startNfc();
+                        read(callbackContext, pageOffset);
+                    }
                 }
             }
         });
@@ -211,6 +216,11 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                     callbackContext.success();
                 } catch (final Exception e) {
                     clean(callbackContext, e);
+
+                    if (e.getMessage() == "NFC service died") {
+                        startNfc();
+                        write(callbackContext, pageOffset, data);
+                    }
                 }
             }
         });
@@ -239,6 +249,11 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                     }
                 } catch (final Exception e) {
                     clean(callbackContext, e);
+
+                    if (e.getMessage() == "NFC service died") {
+                        startNfc();
+                        unlock(callbackContext, pin);
+                    }
                 }
             }
         });
