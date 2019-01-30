@@ -50,7 +50,6 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
         mAdapter = NfcAdapter.getDefaultAdapter(this.cordova.getActivity().getApplicationContext());
 
         intentFilters.add(new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED));
-        intentFilters.add(new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED));
     }
 
     @Override
@@ -289,7 +288,7 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                 if (nfcAdapter != null && !getActivity().isFinishing()) {
                     try {
                         // nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, getIntentFilters(), getTechLists());
-                        nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, getIntentFilters(), null);
+                        nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, null, null);
                     } catch (IllegalStateException e) {
                         // issue 110 - user exits app with home button while nfc is initializing
                         Log.w(TAG, "Illegal State Exception starting NFC. Assuming application is terminating.");
@@ -347,9 +346,6 @@ public class CordovaPluginMifareUltralight extends CordovaPlugin {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
                     fireTagEvent(tag, "mifareTagDiscovered");
-                } else if (action.equals(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED) && mAdapter != null && !mAdapter.isEnabled()) {
-                    Log.d(TAG, "restartNfc");
-                    startNfc();
                 }
                 setIntent(new Intent());
             }
